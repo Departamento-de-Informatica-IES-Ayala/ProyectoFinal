@@ -23,6 +23,8 @@
                 <input type="text" class="email my-2 rounded" placeholder="email">
                 <br />
                 <input type="password" class="pwd my-2 rounded" placeholder="password">
+                <br />
+                <input type="text" class="pwd my-2 rounded" placeholder="IDempresa">
             </form>
 
         </div>
