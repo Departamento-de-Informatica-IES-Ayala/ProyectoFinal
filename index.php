@@ -1,5 +1,6 @@
 <?php
 require "./basedatos/registrar.php";
+require "./basedatos/login.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,20 +19,18 @@ require "./basedatos/registrar.php";
     <!-- Card -->
     <div class="card login ">
         <div class="card-title mx-5 mt-5">
-            <?php if (!empty($mes)) : ?>
-
-                <h4><?= $mes ?></h4>
-            <?php endif; ?>
             <h4 class="text-center">Inicio de sesion</h4>
+        <?php if (!empty($error)) :?>
+            <p><?= $error ?></p>
+        <?php endif;?>
         </div>
         <div class="card-body mx-5">
 
-            <form>
-                <input type="text" class="email my-2 rounded" placeholder="email">
+            <form action="index.php" method="post">
+                <input type="text" class="my-2 rounded" placeholder="dni" name="dni">
                 <br />
-                <input type="password" class="pwd my-2 rounded" placeholder="password">
-                <br />
-                <input type="text" class="pwd my-2 rounded" placeholder="IDempresa">
+                <input type="password" class="my-2 rounded" placeholder="password" name="contra">
+                <button type="submit" class="btn btn-outline-success">Entrar</button>
             </form>
 
         </div>
@@ -59,32 +58,66 @@ require "./basedatos/registrar.php";
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="index.php" method="post">
-                                <input type="text" name='nombreR' class="my-2 rounded" placeholder="nombre" required>
-                                <br />
-                                <input type="text" name='funcionR' class="my-2 rounded" placeholder="funcion" required>
-                                <br />
-                                <input type="text" name='dniR' class="my-2 rounded" placeholder="dni" required>
-                                <br />
-                                <input type="text" name='emailR' class="my-2 rounded" placeholder="email" required>
-                                <br />
-                                <input type="password" name='contraR' class="my-2 rounded" placeholder="contraseña" required>
-                                <br />
-                                <input type="password" name='contra2R' class="my-2 rounded" placeholder="confirmar contraseña" required>
-                                <br />
-                                <input type="text" name='idEmpresaR' class=" my-2 rounded" placeholder="IDempresa" required>
-                                <button type="submit" class="btn btn-primary">Registrar</button>
+                            <form class="form-horizontal" action="index.php" method="post">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="nombreR">Nombre:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="Nombre" name="nombreR" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="funcionR">funcion:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="funcion" name="funcionR" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="dniR">dni:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="dni" name="dniR" required pattern="[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="emailR">Email:</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control" placeholder="email" name="emailR" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="contraR">contraseña:</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control" placeholder="contraseña" name="contraR" minlength="6" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="idEmpresaR">IDempresa:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="IDempresa" name="idEmpresaR" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-outline-success">Registrar</button>
+                                    </div>
+                                </div>
                             </form>
+
+
+
                         </div>
                     </div>
                 </div>
             </div>
+            <script>
+                if (window.history.replaceState) { // verificamos disponibilidad
+                    window.history.replaceState(null, null, window.location.href);
+                }
+            </script>
             <!-- Bootstrap, JQuery -->
             <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
