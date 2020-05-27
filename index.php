@@ -30,6 +30,7 @@ require "./basedatos/login.php";
                 <input type="text" class="my-2 rounded" placeholder="dni" name="dni">
                 <br />
                 <input type="password" class="my-2 rounded" placeholder="password" name="contra">
+                <br />
                 <button type="submit" class="btn btn-outline-success">Entrar</button>
             </form>
 
@@ -106,14 +107,13 @@ require "./basedatos/login.php";
                                     </div>
                                 </div>
                             </form>
-
-
-
                         </div>
                     </div>
                 </div>
             </div>
-            <script>
+            <!-- Modal registro emrpesa -->
+            <!-- script recarga -->
+           <script>
                 if (window.history.replaceState) { // verificamos disponibilidad
                     window.history.replaceState(null, null, window.location.href);
                 }

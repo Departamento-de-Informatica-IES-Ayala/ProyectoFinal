@@ -8,7 +8,7 @@ if(!empty($_POST['nombreR']) && !empty($_POST['funcionR']) && !empty($_POST['dni
     $prep->bindParam(':dni',$_POST['dniR']);
     $prep->bindParam(':email',$_POST['emailR']);
     $prep->bindParam(':idEmpresa',$_POST['idEmpresaR']);
-    $contraseña= password_hash($_POST['contraR'], PASSWORD_DEFAULT);
+    $contraseña= password_hash($_POST['contraR'], PASSWORD_BCRYPT);
     $prep->bindParam(':contra',$contraseña);
 
     if($prep->execute()){
