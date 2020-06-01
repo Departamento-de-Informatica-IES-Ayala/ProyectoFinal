@@ -114,7 +114,7 @@ require "./basedatos/login.php";
             <!-- Modal registro emrpesa -->
             <!-- script recarga -->
            <script>
-                if (window.history.replaceState) { // verificamos disponibilidad
+                if (window.history.replaceState) { 
                     window.history.replaceState(null, null, window.location.href);
                 }
             </script>

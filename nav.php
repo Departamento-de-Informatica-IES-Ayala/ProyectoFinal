@@ -1,3 +1,6 @@
+<?php
+require './basedatos/sesion.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +16,11 @@
 </head>
 <body>
 <div id="app">
-<!-- Nav tabs -->
+<nav class="navbar navbar-light bg-light  sticky-top d-flex justify-content-">
+  <span class="navbar-brand mb-0 h1"><?=$usuario['nombre'] ?></span>
+  <a  href= "./basedatos/logout.php" class="btn btn-outline-danger">Cerrar sesion</a>
+</nav>
+<!-- Nav -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top d-flex justify-content-center">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
