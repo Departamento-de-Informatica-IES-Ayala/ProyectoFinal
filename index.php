@@ -127,4 +127,3 @@ require "./basedatos/login.php";
 </body>
 
 </html>
-    
