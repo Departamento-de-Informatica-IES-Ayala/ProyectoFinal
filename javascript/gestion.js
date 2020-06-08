@@ -3,56 +3,101 @@ var appcliente = new Vue({
     el: "#appclientes",
     data: {
         clientes: [],
+        tratamientos:[],
+        precio:"",
+        tratamiento:"",
         nombre: "",
         dni: "",
         email: "",
         telefono: "",
         valoracion: "",
         total: 0,
+        buscar: "",
     },
     methods: {
         //para axios se pone async 
         add: async function () {
-            arr[this.nombre = document.getElementById('nombreR').value,
-                this.dni = document.getElementById('dniR').value,
-                this.email = document.getElementById('emailR').value,
-                this.telefono = document.getElementById('telefonoR').value,
-                this.valoracion = document.getElementById('observacionesR').value]
-            if (arr.lenght != 0) {
+            this.nombre = document.getElementById('nombre').value
+            this.dni = document.getElementById('dni').value
+            this.email = document.getElementById('email').value
+            this.telefono = document.getElementById('telefono').value
+            this.valoracion = document.getElementById('observaciones').value
+            var arr=[this.nombre,this.dni,this.email,this.telefono,this.valoracion];
                 this.registrar();
-                return arr;
-            }
         },
         eliminar: function (dni) {
             this.borrar(dni);
         },
         editar: async function (nombre, dni, email, telefono, valoracion) {
-            arrEditar[nombre = document.getElementById('nombreM').value,
+            nombre = document.getElementById('nombreM').value,
                 email = document.getElementById('emailM').value,
                 telefono = document.getElementById('telefonoM').value,
                 valoracion = document.getElementById('observacionesM').value
-            ]
-            if (arr.lenght != 0) {
+            arrEditar[nombre, email, telefono, valoracion];;
+            if (arrEditar.lenght != 0) {
                 this.modificar(nombre, dni, email, telefono, valoracion);
             }
         },
+        rellenarEditar: function (index) {
+            document.getElementById('nombreM').value = this.clientes[index]['nombre'];
+            document.getElementById('emailM').value = this.clientes[index]['email'];
+            document.getElementById('telefonoM').value = this.clientes[index]['telefono'];
+            document.getElementById('observacionesM').value = this.clientes[index]['valoracion'];
+        },
         //conexiones con la base de datos
-        mostrarClientes: function() {
+        mostrarClientes: function () {
             axios.post(url, {
-                opcion:1
-            }).then(response =>{
+                opcion: 1
+            }).then(response => {
                 this.clientes = response.data;
-                console.log(this.clientes);
+
             });
 
         },
+        mostrarTratamientos:function(dni){
+            axios.post(url, {
+                opcion: 5,
+                dni: dni
+            }).then(response => {
+                this.tratamientos = response.data;
+                console.log(this.tratamientos);
+            });
+        },
+        registrar: function () {
+            axios.post(url, {
+                opcion: 2,
+                nombre: this.nombre,
+                dni: this.dni,
+                email: this.email,
+                telefono: this.telefono,
+                valoracion: this.valoracion
+            }).then(response => {
+                this.mostrarClientes();
+                if(response.data!=""){
+                alert(response.data)}
+            });
+
+        },
+        borrar: function(dni){
+            axios.post(url, {
+                opcion: 4,
+                dni: dni
+            }).then(response => {
+                this.mostrarClientes();
+            });  
+        }
     },
     //hace que lo haga nada mas iniciar la aplicacion
-    created: function () {
+    mounted: function () {
         this.mostrarClientes();
+
     },
     computed: {
-
+        ListaArray: function () {
+            return this.clientes.filter(item => {
+                return item.nombre.indexOf(this.buscar) > -1
+            })
+        }
     },
 
 });

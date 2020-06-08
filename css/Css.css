@@ -1,7 +1,40 @@
+*{
+    margin:0;
+    padding: 0;
+}
 .inicio{
-background-color: rgb(3, 190, 159);  
+background-color:#eeeeee;  
+}
+body{
+    height:100%;
+}
+.login .card-footer{
+background-color:#393e46;  
+}
+#informacion{
+    background-color:#393e46;  
+}
+#nav{
+    background-color:#32e0c4;    
+}
+#appclientes{
+    width: 100%;
+    height: 100vh;
+}
+.body-white{
+    color:white;
+}
+.client{
+    background-color:#eeeeee;
 }
 iframe{
     width: 100%;
-   height: 100vh;
+   height: 85vh;
+}
+.container{
+    width: 100%;
+    height: 100vh;
+}
+#appclientes{
+    color:black;
 }

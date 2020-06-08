@@ -1,3 +1,4 @@
+<!-- Registro de empleado -->
 <?php
 require './basedatos/conexion.php';
 if(!empty($_POST['nombreR']) && !empty($_POST['funcionR']) && !empty($_POST['dniR']) && !empty($_POST['emailR'])&& !empty($_POST['contraR']) && !empty($_POST['idEmpresaR'])){

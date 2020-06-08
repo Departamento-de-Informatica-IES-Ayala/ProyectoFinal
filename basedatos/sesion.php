@@ -1,3 +1,4 @@
+<!-- Datos del profesional al iniciar sesion -->
 <?php
 session_start();
 require './basedatos/conexion.php';

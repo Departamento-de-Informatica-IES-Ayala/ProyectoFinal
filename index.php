@@ -1,6 +1,7 @@
 <?php
 require "./basedatos/registrar.php";
 require "./basedatos/login.php";
+require "./basedatos/registroEmpresa.php"
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,41 +18,46 @@ require "./basedatos/login.php";
 
 <body class="vh-100  d-flex align-items-center justify-content-center inicio ">
     <!-- Card -->
-    <div class="card login ">
+    <div class="card login">
         <div class="card-title mx-5 mt-5">
             <h4 class="text-center">Inicio de sesion</h4>
-        <?php if (!empty($error)) :?>
-            <p><?= $error ?></p>
-        <?php endif;?>
+            <?php if (!empty($error)) : ?>
+                <p><?= $error ?></p>
+            <?php endif; ?>
         </div>
         <div class="card-body mx-5">
 
-            <form action="index.php" method="post">
-                <input type="text" class="my-2 rounded" placeholder="dni" name="dni">
-                <br />
-                <input type="password" class="my-2 rounded" placeholder="password" name="contra">
-                <br />
-                <button type="submit" class="btn btn-outline-success">Entrar</button>
+            <form action="index.php" class=" d-flex flex-column align-items-center justify-content-center" method="post">
+                <div class="form-group">
+                    <label class="control-label col-sm-6" for="dni">DNI:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="dni" name="dni" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-6" for="contra">Contraseña:</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" placeholder="password" name="contra" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-outline-success btn-block">Entrar</button>
             </form>
 
         </div>
-        <div class="card-footer">
+        <div class="card-footer footer">
             <div class="d-flex justify-content-center">
                 <button type="button" class="btn btn-outline-info register mx-2" data-toggle="modal" data-target="#exampleModalCenter">
-                    <span>register</span>
+                    <span>Registrar empleado</span>
                 </button>
-                <button type="button" class="btn btn-outline-primary acceso mx-2">
-                    <span>sign in</span>
+                <button type="button" class="btn btn-outline-primary acceso mx-2" data-toggle="modal" data-target="#modalEmpresa">
+                    <span>Registrar empresa</span>
                 </button>
             </div>
             <br />
             <a href="#" class="link d-flex justify-content-center">
-                registrar empresa
+                eliminar empleado
             </a>
             <br />
-            <a href="#" class="link d-flex justify-content-center">
-                forgot your password ?
-            </a>
         </div>
         <div>
             <!-- Modal registro empleado-->
@@ -112,9 +118,47 @@ require "./basedatos/login.php";
                 </div>
             </div>
             <!-- Modal registro emrpesa -->
+            <div class="modal fade" id="modalEmpresa" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" action="index.php" method="post">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="idEmpresa">IDempresa:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="IDempresa" name="idEmpresa" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="email">Email:</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control" placeholder="email" name="email" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="contra">contraseña:</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control" placeholder="contraseña" name="contra" minlength="6" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-outline-success">Registrar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- script recarga -->
-           <script>
-                if (window.history.replaceState) { 
+            <script>
+                if (window.history.replaceState) {
                     window.history.replaceState(null, null, window.location.href);
                 }
             </script>
