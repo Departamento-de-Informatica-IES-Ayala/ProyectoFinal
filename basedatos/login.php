@@ -13,7 +13,7 @@ if(!empty($_POST['dni']) && !empty($_POST['contra'])){
  $error="";
  if( ($numF > 0) && password_verify($_POST['contra'], $resultados['password'])){
      $_SESSION['user_id']=$resultados['dni'];
-     header('Location: /proyectoFinal/nav.php');
+     header('Location: ./nav.php');
  }else{
      $error="usuario o contraseña incorrecto";
  }

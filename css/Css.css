@@ -25,6 +25,7 @@ background-color:#393e46;
     color:white;
 }
 .client{
+
     background-color:#eeeeee;
 }
 iframe{
@@ -36,5 +37,8 @@ iframe{
     height: 100vh;
 }
 #appclientes{
+    color:black;
+}
+#appcitas{
     color:black;
 }

@@ -3,9 +3,9 @@ var appcliente = new Vue({
     el: "#appclientes",
     data: {
         clientes: [],
-        tratamientos:[],
-        precio:"",
-        tratamiento:"",
+        tratamientos: [],
+        precio: "",
+        tratamiento: "",
         nombre: "",
         dni: "",
         email: "",
@@ -16,33 +16,54 @@ var appcliente = new Vue({
     },
     methods: {
         //para axios se pone async 
-        add: async function () {
+        add:async function () {
             this.nombre = document.getElementById('nombre').value
             this.dni = document.getElementById('dni').value
             this.email = document.getElementById('email').value
             this.telefono = document.getElementById('telefono').value
             this.valoracion = document.getElementById('observaciones').value
-            var arr=[this.nombre,this.dni,this.email,this.telefono,this.valoracion];
-                this.registrar();
+            var arr = [this.nombre, this.dni, this.email, this.telefono, this.valoracion];
+            this.registrar();
+        },
+        agregar:async function (dni) {
+            this.tratamiento = document.getElementById('tratamientoA').value
+            dni = document.getElementById('dniT').value
+            this.precio = document.getElementById('precio').value
+            var arrT=[this.tratamiento,dni,this.precio]
+            console.log(arrT);
+            this.agregarTratamiento(dni);
         },
         eliminar: function (dni) {
             this.borrar(dni);
         },
+        obtenerDNI:function(index){
+            var dni = this.clientes[index]['dni']; 
+            $("#dniG").text(dni);
+        },
+        borrarTratamiento:function(id,dni){
+            dni=$("#dniG").text();
+            console.log(dni);
+            this.eliminarT(id,dni);
+        },
         editar: async function (nombre, dni, email, telefono, valoracion) {
             nombre = document.getElementById('nombreM').value,
+                dni = document.getElementById('dniM').value,
                 email = document.getElementById('emailM').value,
                 telefono = document.getElementById('telefonoM').value,
                 valoracion = document.getElementById('observacionesM').value
-            arrEditar[nombre, email, telefono, valoracion];;
-            if (arrEditar.lenght != 0) {
-                this.modificar(nombre, dni, email, telefono, valoracion);
-            }
+            var arrEditar = [nombre, dni,email, telefono, valoracion];
+            console.log(arrEditar);
+            this.modificar(nombre, dni, email, telefono, valoracion);
         },
         rellenarEditar: function (index) {
             document.getElementById('nombreM').value = this.clientes[index]['nombre'];
+            document.getElementById('dniM').value = this.clientes[index]['dni'];
             document.getElementById('emailM').value = this.clientes[index]['email'];
             document.getElementById('telefonoM').value = this.clientes[index]['telefono'];
             document.getElementById('observacionesM').value = this.clientes[index]['valoracion'];
+        },
+        rellenarDNI:function(index){
+            document.getElementById('dniT').value = this.clientes[index]['dni'];
         },
         //conexiones con la base de datos
         mostrarClientes: function () {
@@ -54,7 +75,7 @@ var appcliente = new Vue({
             });
 
         },
-        mostrarTratamientos:function(dni){
+        mostrarTratamientos: function (dni) {
             axios.post(url, {
                 opcion: 5,
                 dni: dni
@@ -73,18 +94,52 @@ var appcliente = new Vue({
                 valoracion: this.valoracion
             }).then(response => {
                 this.mostrarClientes();
-                if(response.data!=""){
-                alert(response.data)}
+                if (response.data != "") {
+                    alert(response.data)
+                }
             });
 
         },
-        borrar: function(dni){
+        agregarTratamiento: function (dni) {
+            axios.post(url, {
+                opcion: 6,
+                tratamiento: this.tratamiento,
+                dni: dni,
+                precio: this.precio,
+            }).then(response => {
+                this.mostrarTratamientos();
+                console.log(response.data)
+            });
+
+        },
+        modificar: function (nombre, dni, email, telefono, valoracion) {
+            axios.post(url, {
+                opcion: 3,
+                nombre: nombre,
+                dni: dni,
+                email: email,
+                telefono:telefono,
+                valoracion: valoracion
+            }).then(response => {
+                this.mostrarClientes();
+            });
+        },
+        borrar: function (dni) {
             axios.post(url, {
                 opcion: 4,
                 dni: dni
             }).then(response => {
+                console.log(response.data);
                 this.mostrarClientes();
-            });  
+            });
+        },
+        eliminarT: function (id,dni) {
+            axios.post(url, {
+                opcion: 7,
+                id_tratamiento: id
+            }).then(response => {
+                this.mostrarTratamientos(dni);
+            });
         }
     },
     //hace que lo haga nada mas iniciar la aplicacion
