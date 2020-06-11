@@ -27,7 +27,7 @@ require '../basedatos/peticionesAgenda.php';
                 </div>
             </div>
             <div class="row mt-4  mx-0 form-group" id="buscar">
-                <input class="col-12" type="text" v-model="buscar" placeholder="Buscar dia(AÑO/MES/DIA)">
+                <input class="col-12" type="text" v-model="buscar" placeholder="Buscar dia(AÑO-MES-DIA)">
             </div>
             <div class="row my-2 justify-content-start">
                 <div v-for="(cita,index) of ListaArray " :cita='cita' :index='index' class="col-12 col-lg-3   my-1 p-0">

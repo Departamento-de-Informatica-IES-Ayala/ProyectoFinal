@@ -18,6 +18,7 @@ if (isset($_SESSION['user_id'])) {
     $valoracion = (isset($_POST['valoracion'])) ? $_POST['valoracion'] : "";
     $tratamiento = (isset($_POST['tratamiento'])) ? $_POST['tratamiento'] : "";
     $precio = (isset($_POST['precio'])) ? $_POST['precio'] : "";
+    $importe=(isset($_POST['importe'])) ? $_POST['importe'] : "";
     $DNIProf = $_SESSION['user_id'];
     switch ($opcion) {
         case 1: //select
@@ -57,11 +58,11 @@ if (isset($_SESSION['user_id'])) {
 
         break;
         case 6://insertar tratamientos
-            if(!empty($_POST['tratamiento']) && !empty($_POST['dni']) && !empty($_POST['precio'])){
+            if(!empty($_POST['tratamiento']) && !empty($_POST['dni']) && !empty($_POST['precio']) && !empty($_POST['importe'])){
             $consultaid=$conexion->prepare("SELECT id_cliente from clientes where dni='$dni'");
             $consultaid->execute();
             $id=  $consultaid->fetch(PDO::FETCH_LAZY);
-            $consulta=$conexion->prepare("INSERT into tratamientos(tratamiento,precio,dni_cliente) VALUES('$tratamiento','$precio','$id[0]')");
+            $consulta=$conexion->prepare("INSERT into tratamientos(tratamiento,precio,importe_pagado,dni_cliente) VALUES('$tratamiento','$precio','$importe','$id[0]')");
             $consulta->execute();
             $data=$id;
             }
@@ -70,6 +71,15 @@ if (isset($_SESSION['user_id'])) {
             $consulta = $conexion->prepare("delete from tratamientos where id_tratamiento='$id_tratamiento'");
             $consulta->execute();
             $data=$consulta;
+        break;
+        case 8: //editar tratamientos
+            // if(!empty($_POST['importe'])){
+            $consulta = $conexion->prepare("update tratamientos set importe_pagado='$importe' where id_tratamiento='$id_tratamiento'");
+            $consulta->execute();
+            $data = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            // }else{
+            //     $data='error';
+            // }
         break;
     }
     echo json_encode($data, JSON_UNESCAPED_UNICODE);

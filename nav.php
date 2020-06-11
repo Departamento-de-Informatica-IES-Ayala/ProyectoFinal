@@ -28,7 +28,7 @@ require './basedatos/sesion.php';
     <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
       <div class="navbar-nav" id="menu">
         <router-link  class="dropdown-item btn btn-outline-info" to="/clientes">Clientes</router-link>
-        <router-link  class="dropdown-item btn btn-outline-info" to="/citas">Citas</router-link> 
+        <router-link  class="dropdown-item btn btn-outline-info" to="/citas">Citas Hoy</router-link> 
         <router-link class="dropdown-item btn btn-outline-info" to="/agenda">Agenda</router-link>
     </div>
 

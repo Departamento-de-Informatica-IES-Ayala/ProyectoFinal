@@ -35,7 +35,7 @@ require '../basedatos/peticionesClientes.php';
                         <div class="card-body d-flex justify-content-between client">
                             <div>
                                 <h4 class="card-title " name="">{{cliente.nombre}}</h4>
-                                <small >{{cliente.dni}}</small>
+                                <small>{{cliente.dni}}</small>
                             </div>
                             <div>
                                 <button class="btn btn-outline-danger" v-on:click="eliminar(cliente.dni)"><i class="far fa-trash-alt"></i></button>
@@ -43,7 +43,7 @@ require '../basedatos/peticionesClientes.php';
                             </div>
                         </div>
                         <div class="card-footer bg-transparent border-dark d-flex justify-content-between">
-                            <a data-toggle="modal" data-target="#tratamientos" href="#"  v-on:click="mostrarTratamientos(cliente.dni);obtenerDNI(index)"><small id="info" class="form-text text-muted">Tratamientos</small></a>
+                            <a data-toggle="modal" data-target="#tratamientos" href="#" v-on:click="mostrarTratamientos(cliente.dni);obtenerDNI(index)"><small id="info" class="form-text text-muted">Tratamientos</small></a>
                             <button class="btn btn-outline-secondary" v-on:click="rellenarDNI(index)" data-toggle="modal" data-target="#tratamiento">Añadir tratamiento</button>
 
                         </div>
@@ -71,7 +71,7 @@ require '../basedatos/peticionesClientes.php';
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="dni">dni:</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="dni" name="dni" id="dni" required pattern="[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]"  title="Tiene que contener 8 numeros y 1 letra">
+                                    <input type="text" class="form-control" placeholder="dni" name="dni" id="dni" required pattern="[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]" title="Tiene que contener 8 numeros y 1 letra">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -145,7 +145,7 @@ require '../basedatos/peticionesClientes.php';
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-outline-success" v-on:click="editar(clientes.nombre,clientes.dni,clientes.email,clientes.telefono,clientes.valoracion)">Guardar cambios</button>
+                                    <button type="submit" class="btn btn-outline-success" v-on:click="editar">Guardar cambios</button>
                                 </div>
                             </div>
                         </form>
@@ -158,7 +158,7 @@ require '../basedatos/peticionesClientes.php';
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h4 class="card-title " id="dniG"></h4>
+                        <h4 class="card-title " id="dniG"></h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -169,6 +169,7 @@ require '../basedatos/peticionesClientes.php';
                                 <tr>
                                     <th>Tratamiento</th>
                                     <th>Precio</th>
+                                    <th>Importe</th>
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
@@ -176,14 +177,22 @@ require '../basedatos/peticionesClientes.php';
                                 <tr v-for="(tratamiento,indice) of tratamientos">
                                     <td>{{tratamiento.tratamiento}}</td>
                                     <td>{{tratamiento.precio}}</td>
+                                    <td>{{tratamiento.importe_pagado}}</td>
                                     <td>
                                         <div class="btn-group" role="group">
-                                            <button class="btn btn-danger" title="Eliminar" @click="borrarTratamiento(tratamiento.id_tratamiento,clientes.dni)"><i class="fas fa-trash-alt"></i></button>
+                                            <button class="btn btn-outline-danger" title="Eliminar" @click="borrarTratamiento(tratamiento.id_tratamiento,clientes.dni)"><i class="fas fa-trash-alt"></i></button>
+                                            <button class="btn btn-outline-secondary" title="Editar" v-on:click="rellenarEditarTrat(indice)" data-toggle="modal" data-target="#editartrat"><i class="fas fa-pencil-alt"></i></button>
                                         </div>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="modal-footer">
+                        <p class='col-12'>Total <span>{{totalPrecio}}</span></p>          
+                        <p class='col-12'>Total Pagado <span>{{totalPagado}}</span></p>
+                        <p class='col-12'>Deuda <span>{{totalPrecio-totalPagado}}</span></p>
+        
                     </div>
                 </div>
             </div>
@@ -218,8 +227,54 @@ require '../basedatos/peticionesClientes.php';
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="control-label col-sm-4" for="importe">Importe pagado:</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" placeholder="Importe pagados" name="importe" id="importe" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <button type="submit" class="btn btn-outline-success" v-on:click="agregar(clientes.dni)">Añadir tratamiento</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal editar tratamiento-->
+        <div class="modal fade" id="editartrat" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <small id="idT"></small>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="tratamientoM">Tratamiento:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="tratamiento" name="tratamientoM" id="tratamientoM" required readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="precioM">Precio:</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" placeholder="precio" name="precioM" id="precioM" required readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="importeM">Importe pagado:</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" placeholder="Importe pagado" name="importeM" id="importeM" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-outline-success" v-on:click="editarTrat">Guardar cambios</button>
                                 </div>
                             </div>
                         </form>
