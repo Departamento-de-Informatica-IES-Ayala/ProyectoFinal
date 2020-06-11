@@ -17,13 +17,14 @@ var appcliente = new Vue({
     methods: {
         //para axios se pone async 
         add:async function () {
-            this.nombre = document.getElementById('nombre').value
             this.dni = document.getElementById('dni').value
             this.email = document.getElementById('email').value
+            this.nombre = document.getElementById('nombre').value          
             this.telefono = document.getElementById('telefono').value
             this.valoracion = document.getElementById('observaciones').value
-            var arr = [this.nombre, this.dni, this.email, this.telefono, this.valoracion];
+            if(this.dni.checkValidity(),this.email.checkValidity(),this.telefono.checkValidity()){
             this.registrar();
+            }
         },
         agregar:async function (dni) {
             this.tratamiento = document.getElementById('tratamientoA').value

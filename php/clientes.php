@@ -61,7 +61,7 @@ require '../basedatos/peticionesClientes.php';
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" action="clientes.php" method="post">
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="nombre">Nombre:</label>
                                 <div class="col-sm-10">
@@ -71,7 +71,7 @@ require '../basedatos/peticionesClientes.php';
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="dni">dni:</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="dni" name="dni" id="dni" required pattern="[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]">
+                                    <input type="text" class="form-control" placeholder="dni" name="dni" id="dni" required pattern="[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]"  title="Tiene que contener 8 numeros y 1 letra">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -83,7 +83,7 @@ require '../basedatos/peticionesClientes.php';
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="telefono">Telefono:</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="Telefono" name="telefono" id="telefono" required>
+                                    <input type="text" class="form-control" placeholder="Telefono" name="telefono" id="telefono" required pattern="^[9|8|7|6]\d{8}$">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -134,7 +134,7 @@ require '../basedatos/peticionesClientes.php';
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="telefonoM">Telefono:</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="Telefono" name="telefonoM" id="telefonoM" required>
+                                    <input type="text" class="form-control" placeholder="Telefono" name="telefonoM" id="telefonoM" required pattern="^[9|8|7|6]\d{8}$">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -214,7 +214,7 @@ require '../basedatos/peticionesClientes.php';
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="precio">Precio:</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="precio" name="precio" id="precio" required>
+                                    <input type="number" class="form-control" placeholder="precio" name="precio" id="precio" required>
                                 </div>
                             </div>
                             <div class="form-group">

@@ -7,6 +7,7 @@ if (isset($_SESSION['user_id'])) {
     //para axios
     $_POST = json_decode(file_get_contents("php://input"), true);
     //variables que se reciben para realizar las query en caso de no existir las crea vacias;
+
     $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : "";
     $data = '';
     $nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : "";
@@ -25,6 +26,7 @@ if (isset($_SESSION['user_id'])) {
             $data = $consulta->fetchAll(PDO::FETCH_ASSOC);
             break;
         case 2: //insert
+            if(!empty($_POST['nombre']) && !empty($_POST['dni']) && !empty($_POST['email']) && !empty($_POST['telefono'])){
             $comprobar = $conexion->prepare("SELECT * from clientes where DNIProf='$DNIProf' and dni='$dni'");
             $comprobar->execute();
             $numF = $comprobar->rowCount();
@@ -34,11 +36,14 @@ if (isset($_SESSION['user_id'])) {
                 $consulta = $conexion->prepare("insert into clientes(nombre,dni,email,telefono,valoracion,DNIProf) values('$nombre','$dni','$email','$telefono','$valoracion','$DNIProf')");
                 $consulta->execute();
             }
+        }
             break;
         case 3: //update
+            if(!empty($_POST['nombre']) && !empty($_POST['dni']) && !empty($_POST['email']) && !empty($_POST['telefono'])){
             $consulta = $conexion->prepare("update clientes set nombre='$nombre', email='$email', telefono='$telefono', valoracion='$valoracion' where dni='$dni' and DNIProf='$DNIProf'");
             $consulta->execute();
             $data = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            }
             break;
         case 4: //delete
             $consulta = $conexion->prepare("delete from clientes where dni='$dni' and DNIProf='$DNIProf'");
@@ -52,12 +57,14 @@ if (isset($_SESSION['user_id'])) {
 
         break;
         case 6://insertar tratamientos
+            if(!empty($_POST['tratamiento']) && !empty($_POST['dni']) && !empty($_POST['precio'])){
             $consultaid=$conexion->prepare("SELECT id_cliente from clientes where dni='$dni'");
             $consultaid->execute();
             $id=  $consultaid->fetch(PDO::FETCH_LAZY);
             $consulta=$conexion->prepare("INSERT into tratamientos(tratamiento,precio,dni_cliente) VALUES('$tratamiento','$precio','$id[0]')");
             $consulta->execute();
             $data=$id;
+            }
         break;
         case 7: //borrar tratamientos
             $consulta = $conexion->prepare("delete from tratamientos where id_tratamiento='$id_tratamiento'");

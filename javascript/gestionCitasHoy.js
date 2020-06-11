@@ -16,9 +16,11 @@ var appcliente = new Vue({
         agregar:async function (dni) {
             this.hora = document.getElementById('horaC').value
             dni = document.getElementById('dni').value
+            if(this.hora.checkValidity()){
             var arrT=[this.hora,dni]
             console.log(arrT);
             this.agregarCita(dni);
+            }
         },
         borrarCita:function(index){
             idcita= this.citas[index]['id_citas'];

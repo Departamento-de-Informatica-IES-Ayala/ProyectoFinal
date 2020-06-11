@@ -1,7 +1,9 @@
 <?php
 require "./basedatos/registrar.php";
 require "./basedatos/login.php";
-require "./basedatos/registroEmpresa.php"
+require "./basedatos/registroEmpresa.php";
+require "./basedatos/eliminarempleado.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,7 +56,7 @@ require "./basedatos/registroEmpresa.php"
                 </button>
             </div>
             <br />
-            <a href="#" class="link d-flex justify-content-center">
+            <a href="#" class="link d-flex justify-content-center" data-toggle="modal" data-target="#modalEliminar">
                 eliminar empleado
             </a>
             <br />
@@ -144,6 +146,45 @@ require "./basedatos/registroEmpresa.php"
                                     <label class="control-label col-sm-4" for="contra">contraseña:</label>
                                     <div class="col-sm-10">
                                         <input type="password" class="form-control" placeholder="contraseña" name="contra" minlength="6" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-outline-success">Registrar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal eliminar empleado -->
+            <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" action="index.php" method="post">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="idEmpresaB">IDempresa:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="IDempresa" name="idEmpresaB" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="dniE">DNI empleado:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="DNI empleado" name="dniE" required pattern="[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="contraB">contraseña:</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control" placeholder="contraseña" name="contraB"  required>
                                     </div>
                                 </div>
                                 <div class="form-group">

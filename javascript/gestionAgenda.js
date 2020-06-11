@@ -15,13 +15,15 @@ var appcliente = new Vue({
     },
     methods: {
         //para axios se pone async 
-        agregar:async function (dni) {
+        agregar:async function (dni) {           
             this.hora = document.getElementById('horaC').value
             dni = document.getElementById('dni').value
             this.dia=document.getElementById('dia').value
+            if(dni.checkValidity(),this.dia.checkValidity(),this.hora.checkValidity()){
             var arrT=[this.hora,dni,this.dia]
             console.log(arrT);
             this.agregarCita(dni);
+            }
         },
         borrarCita:function(index){
             idcita= this.citasdatos[index]['id_citas'];
